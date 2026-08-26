@@ -120,82 +120,76 @@ KQS.forEach(k=>{P['kq/'+k.n]=()=> KQD[k.n]?kqDetail(k,KQD[k.n]):kqStub(k)});
 /* ---- Decision Support ---- */
 P['tools/select']=()=>`${crumb('Decision Support','약제 선택 지원')}
  <h1 class="page">약제 선택 지원</h1>
- <p class="page-en">Biologic Candidate Finder — phenotype-based</p>
- <div class="tool-lede"><div class="ic">☰</div><div><div class="tl-t">표현형 → 허가 적응 후보 안내</div>
- <div class="tl-s">표현형·생체표지자에 따라 <b>허가 적응 대상에 해당하는 후보 약제</b>와 관련 권고안을 안내합니다. 후보 제시는 우열이 아니며(KQ1–6은 위약 대비 간접비교), 급여 기준은 별도 확인이 필요합니다.</div></div></div>
- <div style="margin:0 0 14px"><span class="small" style="font-weight:700;margin-right:8px">보기 모드</span><span class="seg"><button class="on" id="mDoc" onclick="selMode(0)">의료진</button><button id="mPat" onclick="selMode(1)">환자</button></span></div>
- <div class="stepcard"><div class="sc-h"><span class="sc-n">1</span><span class="sc-t">중증천식 확인</span><span class="sc-b muted small" id="s1cnt">0 / 4</span></div>
- <p class="small muted" id="s1desc" style="margin-top:0">생물학적제제 고려 전, 아래 4가지를 먼저 확인합니다.</p>
- ${[['천식 진단 재확인','객관적 검사로 천식 진단이 확인되었는가'],['흡입기 사용법·순응도 점검','흡입제 사용 기술과 치료 순응도가 적절한가'],['생체표지자 평가','알레르기 감작 · FeNO · 혈중 호산구를 평가하였는가'],['동반질환·악화 요인 확인','조절 불량과 연관된 동반질환·위험 요인을 확인하였는가']].map((c,i)=>`<label class="chk"><input type="checkbox" class="s1c" onchange="selCnt()"><span><b>${c[0]}</b><br><span class="muted small">${c[1]}</span></span></label>`).join('')}
- </div>
- <div class="stepcard"><div class="sc-h"><span class="sc-n">2</span><span class="sc-t">표현형·생체표지자</span></div>
- <p class="small muted" style="margin-top:0">해당하는 항목을 모두 선택하세요.</p>
- ${[['알레르기성 — 통년성 항원 감작 + 혈중 총 IgE 상승','ph-a'],['호산구성 — 혈중 호산구 증가','ph-e'],['제2형 염증 — 혈중 호산구 ≥150/㎕ 또는 FeNO ≥25 ppb','ph-t2'],['경구 스테로이드(OCS) 의존','ph-ocs'],['위 표현형에 해당하지 않거나 불명확','ph-none']].map(c=>`<label class="chk"><input type="checkbox" id="${c[1]}"><span>${c[0]}</span></label>`).join('')}
- </div>
- <div class="stepcard"><div class="sc-h"><span class="sc-n">3</span><span class="sc-t">후보 약제 확인</span></div>
- <p style="margin:2px 0 8px"><button class="btn" onclick="runSelect()">후보 약제 보기</button></p>
- <div id="selOut"></div></div>
+ <p class="page-en">Biologic Candidate Finder — stepwise algorithm &amp; 허가 적응 매핑</p>
+ ${modeSeg()}
+ <div id="pcxBar">${pcxBar()}</div>
+ ${PC.mode==='pat'?`
+ <div class="tool-lede"><div class="ic">🧭</div><div><div class="tl-t">몇 가지 질문으로, 선생님과 상의해볼 치료 후보를 알아봅니다</div>
+ <div class="tl-s">검사 수치를 모르셔도 괜찮아요 — "모르겠어요"를 고르면 <b>다음 진료 때 확인할 것</b>을 알려드립니다. 이 도구는 참고용이며, 치료 결정은 반드시 담당 의료진과 상의하세요.</div></div></div>`
+ :`
+ <div class="tool-lede"><div class="ic">☰</div><div><div class="tl-t">알고리듬 경로 + 허가 적응 후보를 함께 안내</div>
+ <div class="tl-s">입력한 조건이 <b>단계별 약제 선택 알고리듬</b>의 어느 분기에 해당하는지 경로로 표시하고, 해당 경로의 <b>기전(계열)·후보 약제·권고안</b>을 함께 제시합니다. 입력 즉시 결과가 갱신됩니다. 후보 제시는 우열이 아니며(KQ1–6은 위약 대비 간접비교), 급여 기준은 별도 확인이 필요합니다.</div></div></div>`}
+ <div id="selUI">${selUI()}</div>
  ${indirect}${disclaimer}${pfoot}`;
 
 P['tools/response']=()=>`${crumb('Decision Support','치료 반응 평가')}
  <h1 class="page">치료 반응 평가</h1>
  <p class="page-en">Per-indicator MCID Assessment — no composite score</p>
+ ${modeSeg()}
+ <div id="pcxBar">${pcxBar()}</div>
+ ${PC.mode==='pat'?`
+ <div class="tool-lede"><div class="ic">✓</div><div><div class="tl-t">치료 전후 변화를 지표별로 확인해 봅니다</div>
+ <div class="tl-s">전문가들이 합의한 <b>"의미 있는 변화 기준(MCID)"</b>에 도달했는지 지표마다 따로 보여드립니다. 종합 점수는 없어요 — 결과 카드를 넘겨 보며 <b>진료 때 상의할 내용</b>을 준비해 보세요.</div></div></div>`
+ :`
  <div class="tool-lede"><div class="ic">✓</div><div><div class="tl-t">MCID 기준 · 지표별 충족 여부만 표시</div>
- <div class="tl-s">전문가 델파이로 합의된 <a href="#/method/mcid">MCID(최소 임상적 중요 차이)</a> 기준으로 <b>지표별 충족 여부만</b> 표시합니다. 종합 판정(반응/무반응 등급)은 제공하지 않으며, 해석과 결정은 담당 의료진의 몫입니다. 값을 입력하지 않은 지표는 "미입력"으로 표시됩니다.</div></div></div>
+ <div class="tl-s">전문가 델파이로 합의된 <a href="#/method/mcid">MCID(최소 임상적 중요 차이)</a> 기준으로 <b>지표별 충족 여부만</b> 표시합니다. 종합 판정(반응/무반응 등급)은 제공하지 않으며, 해석과 결정은 담당 의료진의 몫입니다. 값을 입력하지 않은 지표는 "미입력"으로 표시됩니다.</div></div></div>`}
  <div class="stepcard"><div class="sc-h"><span class="sc-n">1</span><span class="sc-t">천식 악화</span><span class="sc-b"><span class="b b-ev">핵심적</span></span></div>
+ ${ph('증상이 심해져서 <b>먹는 스테로이드 치료·응급실 방문·입원</b>이 필요했던 횟수예요. 치료 시작 전 1년과 치료 후 1년을 비교합니다.')}
  <div class="inrow">
-  <div class="field"><label>치료 전 12개월 악화 횟수</label><input type="number" id="exPre" min="0" step="1"></div>
-  <div class="field"><label>치료 후 12개월 악화 횟수</label><input type="number" id="exPost" min="0" step="1"></div>
+  <div class="field"><label>치료 전 12개월 악화 횟수</label><input type="number" id="exPre" min="0" step="1" value="${rv('exPre')}"></div>
+  <div class="field"><label>치료 후 12개월 악화 횟수</label><input type="number" id="exPost" min="0" step="1" value="${rv('exPost')}"></div>
  </div></div>
  <div class="stepcard"><div class="sc-h"><span class="sc-n">2</span><span class="sc-t">경구 스테로이드(OCS)</span><span class="sc-b"><span class="b b-ev">핵심적</span></span></div>
+ ${ph('먹는 스테로이드(프레드니솔론 등)를 얼마나 줄였는지 봅니다. 정확한 용량은 처방전이나 담당 선생님께 확인할 수 있어요. 모르면 비워 두세요.')}
  <div class="inrow">
-  <div class="field"><label>치료 전 12개월 누적 용량 <span class="hint">(prednisone equivalent, mg)</span></label><input type="number" id="ocsPre" min="0"></div>
-  <div class="field"><label>치료 후 12개월 누적 용량 <span class="hint">(mg)</span></label><input type="number" id="ocsPost" min="0"></div>
-  <div class="field"><label>현재 유지용량 <span class="hint">(mg/day)</span></label><input type="number" id="ocsMaint" min="0" step="0.5"></div>
+  <div class="field"><label>치료 전 12개월 누적 용량 <span class="hint">(prednisone equivalent, mg)</span></label><input type="number" id="ocsPre" min="0" value="${rv('ocsPre')}"></div>
+  <div class="field"><label>치료 후 12개월 누적 용량 <span class="hint">(mg)</span></label><input type="number" id="ocsPost" min="0" value="${rv('ocsPost')}"></div>
+  <div class="field"><label>현재 유지용량 <span class="hint">(mg/day)</span></label><input type="number" id="ocsMaint" min="0" step="0.5" value="${rv('ocsMaint')}"></div>
  </div></div>
  <div class="stepcard"><div class="sc-h"><span class="sc-n">3</span><span class="sc-t">천식 조절도 · 삶의 질</span><span class="sc-b"><span class="b b-hold" style="border-color:var(--line2)">중요한</span></span></div>
+ ${ph('진료 때 작성했던 설문 점수예요 — ACT(천식조절검사, 높을수록 좋음) · ACQ(낮을수록 좋음) · AQLQ(삶의 질, 높을수록 좋음). 아는 것만 넣으세요.')}
  <div class="inrow">
-  <div class="field"><label>ACT <span class="hint">전 → 후</span></label><input type="number" id="actPre" min="5" max="25"> → <input type="number" id="actPost" min="5" max="25"></div>
-  <div class="field"><label>ACQ <span class="hint">전 → 후</span></label><input type="number" id="acqPre" min="0" max="6" step="0.1"> → <input type="number" id="acqPost" min="0" max="6" step="0.1"></div>
-  <div class="field"><label>AQLQ <span class="hint">전 → 후</span></label><input type="number" id="aqPre" min="1" max="7" step="0.1"> → <input type="number" id="aqPost" min="1" max="7" step="0.1"></div>
+  <div class="field"><label>ACT <span class="hint">전 → 후</span></label><input type="number" id="actPre" min="5" max="25" value="${rv('actPre')}"> → <input type="number" id="actPost" min="5" max="25" value="${rv('actPost')}"></div>
+  <div class="field"><label>ACQ <span class="hint">전 → 후</span></label><input type="number" id="acqPre" min="0" max="6" step="0.1" value="${rv('acqPre')}"> → <input type="number" id="acqPost" min="0" max="6" step="0.1" value="${rv('acqPost')}"></div>
+  <div class="field"><label>AQLQ <span class="hint">전 → 후</span></label><input type="number" id="aqPre" min="1" max="7" step="0.1" value="${rv('aqPre')}"> → <input type="number" id="aqPost" min="1" max="7" step="0.1" value="${rv('aqPost')}"></div>
  </div></div>
  <div class="stepcard"><div class="sc-h"><span class="sc-n">4</span><span class="sc-t">폐기능 (pre-BD FEV1)</span><span class="sc-b"><span class="b b-hold" style="border-color:var(--line2)">중요한</span></span></div>
+ ${ph('숨을 세게 내쉬는 폐기능 검사 수치예요. 검사 결과지의 FEV1 값을 넣으면 됩니다(기관지확장제 흡입 전 값).')}
  <div style="margin-bottom:10px"><span class="seg"><button class="on" id="fevPct" onclick="fevUnit('pct')">% (예측치)</button><button id="fevL" onclick="fevUnit('L')">L</button></span></div>
  <div class="inrow">
-  <div class="field"><label>치료 전 <span class="hint" id="fevU1">(%)</span></label><input type="number" id="fevPre" step="0.01"></div>
-  <div class="field"><label>치료 후 <span class="hint" id="fevU2">(%)</span></label><input type="number" id="fevPost" step="0.01"></div>
+  <div class="field"><label>치료 전 <span class="hint" id="fevU1">(%)</span></label><input type="number" id="fevPre" step="0.01" value="${rv('fevPre')}"></div>
+  <div class="field"><label>치료 후 <span class="hint" id="fevU2">(%)</span></label><input type="number" id="fevPost" step="0.01" value="${rv('fevPost')}"></div>
  </div>
  <label class="chk"><input type="checkbox" id="fevSame"><span>두 측정 모두 <b>기관지확장제 투여 전(pre-BD)</b> 동일 조건에서 측정되었음을 확인합니다 <span class="muted small">(미확인 시 폐기능 판정 보류)</span></span></label></div>
  <p style="margin-top:16px"><button class="btn" onclick="runResp()">지표별 충족 여부 확인</button></p>
  <div id="respOut"></div>
- <h3 class="sect">이상반응 참고 기준 (판정 아님)</h3>
+ ${PC.mode==='pat'?'':`<h3 class="sect">이상반응 참고 기준 (판정 아님)</h3>
  <div class="tw"><table><thead><tr><th>항목</th><th>합의 내용</th><th>합의율</th></tr></thead><tbody>
  ${AERULES.map(r=>`<tr><td><b>${r[0]}</b></td><td class="small">${r[1]}</td><td>${r[3]==='ok'?'<span class="b b-ok">'+r[2]+'</span>':'<span class="b b-warn2">'+r[2]+'</span>'}</td></tr>`).join('')}</tbody></table></div>
- <div class="notice"><b>FEV1(%) 기준 확인 중</b> · "기저치 대비 ≥10% 증가(절대값)"의 계산 정의(퍼센트포인트 절대 증가 vs 상대 10%)는 위원회 확인 후 확정됩니다. 본 프로토타입은 변화량(후−전) ≥ 10을 사용합니다.</div>
+ <div class="notice"><b>FEV1(%) 기준 확인 중</b> · "기저치 대비 ≥10% 증가(절대값)"의 계산 정의(퍼센트포인트 절대 증가 vs 상대 10%)는 위원회 확인 후 확정됩니다. 본 프로토타입은 변화량(후−전) ≥ 10을 사용합니다.</div>`}
  ${disclaimer}${pfoot}`;
 
 P['tools/adjust']=()=>`${crumb('Decision Support','감량·교체 경로')}
  <h1 class="page">감량·교체 경로</h1>
  <p class="page-en">Tapering (KQ7) &amp; Switching (KQ8) Pathways</p>
+ ${modeSeg()}
+ <div id="pcxBar">${pcxBar()}</div>
+ ${PC.mode==='pat'?`
+ <div class="tool-lede"><div class="ic">⇄</div><div><div class="tl-t">주사를 줄여볼 수 있을까? 바꿔야 할까?</div>
+ <div class="tl-s">치료가 <b>잘 되고 있다면 천천히 줄여보는 길(KQ7)</b>, <b>효과가 부족하다면 다른 약으로 바꾸는 길(KQ8)</b>이 있어요. 어느 쪽이든 혼자 결정하지 말고, 아래 내용을 읽고 담당 선생님과 상의해 보세요.</div></div></div>`
+ :`
  <div class="tool-lede"><div class="ic">⇄</div><div><div class="tl-t">두 권고의 적용 전제와 실행 원칙 안내</div>
- <div class="tl-s">잘 조절되는 환자의 <b>단계적 감량(KQ7)</b>과 반응이 불충분한 환자의 <b>교체·추가(KQ8)</b> — 정보 제공형 도구이며 판정은 하지 않습니다. 상황에 맞는 경로를 선택하세요.</div></div></div>
- <div class="pathsel">
-  <button class="on" id="pa" onclick="adjPath('a')"><span class="p-k">경로 A · KQ7</span><div class="p-t">감량·중단 검토</div><div class="p-s">6개월 이상 안정적으로 잘 조절 중 — 단계적 감량을 고려할 수 있는가</div></button>
-  <button id="pb" onclick="adjPath('b')"><span class="p-k">경로 B · KQ8</span><div class="p-t">교체·추가 검토</div><div class="p-s">적절한 치료 기간에도 반응 불충분 — 다른 제제로의 교체를 고려할 수 있는가</div></button>
- </div>
- <div id="adjA">
-  <div class="stepcard"><div class="sc-h"><span class="sc-n">✓</span><span class="sc-t">전제 확인</span><span class="sc-b muted small" id="gAcnt">0 / 3</span></div>
-  <div class="gatebar" aria-hidden="true"><i id="gAbar"></i></div>
-  ${[['현재 생물학적 제제를 사용 중이다','ga1'],['<b>6개월 이상</b> 안정적으로 잘 조절되고 있다 (악화 없음 · 조절 유지)','ga2'],['감량의 예상 이득(치료 부담·비용 감소)과 잠재적 위험(악화 위험 소폭 증가)을 환자와 공유하고 공동 의사결정을 했다','ga3']].map(c=>`<label class="chk"><input type="checkbox" id="${c[1]}" onchange="adjCheckA()"><span>${c[0]}</span></label>`).join('')}
-  </div>
-  <div id="adjAOut"><div class="notice">세 항목을 모두 확인하면 KQ7 권고와 실행 원칙이 표시됩니다.</div></div>
- </div>
- <div id="adjB" style="display:none">
-  <div class="stepcard"><div class="sc-h"><span class="sc-n">✓</span><span class="sc-t">전제 확인</span><span class="sc-b muted small" id="gBcnt">0 / 2</span></div>
-  <div class="gatebar" aria-hidden="true"><i id="gBbar"></i></div>
-  ${[['현재 약제로 <b>적절한 치료 기간</b>이 경과했다','gb1'],['임상적 반응이 불충분하다 — <a href="#/tools/response">치료 반응 평가</a> 결과를 참고','gb2']].map(c=>`<label class="chk"><input type="checkbox" id="${c[1]}" onchange="adjCheckB()"><span>${c[0]}</span></label>`).join('')}
-  </div>
-  <div id="adjBOut"><div class="notice">두 항목을 모두 확인하면 KQ8 권고가 표시됩니다.</div></div>
- </div>
+ <div class="tl-s">잘 조절되는 환자의 <b>단계적 감량(KQ7)</b>과 반응이 불충분한 환자의 <b>교체·추가(KQ8)</b> — 정보 제공형 도구이며 판정은 하지 않습니다. 상황에 맞는 경로를 선택하세요.</div></div></div>`}
+ <div id="adjUI">${adjUI()}</div>
  ${disclaimer}${pfoot}`;
 
