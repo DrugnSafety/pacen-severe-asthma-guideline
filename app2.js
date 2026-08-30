@@ -142,7 +142,7 @@ P['tools/response']=()=>`${crumb('Decision Support','치료 반응 평가')}
  <div class="tl-s">전문가들이 합의한 <b>"의미 있는 변화 기준(MCID)"</b>에 도달했는지 지표마다 따로 보여드립니다. 종합 점수는 없어요 — 결과 카드를 넘겨 보며 <b>진료 때 상의할 내용</b>을 준비해 보세요.</div></div></div>`
  :`
  <div class="tool-lede"><div class="ic">✓</div><div><div class="tl-t">MCID 기준 · 지표별 충족 여부만 표시</div>
- <div class="tl-s">전문가 델파이로 합의된 <a href="#/method/mcid">MCID(최소 임상적 중요 차이)</a> 기준으로 <b>지표별 충족 여부만</b> 표시합니다. 종합 판정(반응/무반응 등급)은 제공하지 않으며, 해석과 결정은 담당 의료진의 몫입니다. 값을 입력하지 않은 지표는 "미입력"으로 표시됩니다.</div></div></div>`}
+ <div class="tl-s">전문가 델파이로 합의된 <a href="#/method/mcid">MCID(최소 임상적 중요 차이)</a> 기준으로 <b>지표별 충족 여부만</b> 표시합니다. 종합 판정(반응/무반응 등급)은 제공하지 않으며, 해석과 결정은 담당 의료진의 몫입니다. 값을 입력하지 않은 지표는 "미입력"으로 표시됩니다. <b>평가 주기(정본 Table II-0-2)</b> — 치료 시작 후 <b>4개월</b>에 초기 반응을 평가하고, 반응이 있으면 <b>6–12개월</b> 간격으로 재평가합니다(알고리듬 Figure II-9: 3–6개월마다 반응 평가).</div></div></div>`}
  <div class="stepcard"><div class="sc-h"><span class="sc-n">1</span><span class="sc-t">천식 악화</span><span class="sc-b"><span class="b b-ev">핵심적</span></span></div>
  ${ph('증상이 심해져서 <b>먹는 스테로이드 치료·응급실 방문·입원</b>이 필요했던 횟수예요. 치료 시작 전 1년과 치료 후 1년을 비교합니다.')}
  <div class="inrow">
@@ -192,4 +192,3 @@ P['tools/adjust']=()=>`${crumb('Decision Support','감량·교체 경로')}
  <div class="tl-s">잘 조절되는 환자의 <b>단계적 감량(KQ7)</b>과 반응이 불충분한 환자의 <b>교체·추가(KQ8)</b> — 정보 제공형 도구이며 판정은 하지 않습니다. 상황에 맞는 경로를 선택하세요.</div></div></div>`}
  <div id="adjUI">${adjUI()}</div>
  ${disclaimer}${pfoot}`;
-

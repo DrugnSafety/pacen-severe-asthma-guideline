@@ -94,7 +94,7 @@ function algoPanel(A){
  <div class="algo-frame">${algoSVG(A)}</div>
  ${A.M.length?`<div class="algo-map">${A.M.map(m=>`<div class="row"><span class="sel">${m.sel}</span><span class="arr">→</span><span class="node">${m.node}</span><span class="br">분기: <b>${m.br}</b></span></div>`).join('')}</div>`:''}
  ${A.need?`<div class="algo-next"><b>다음 분기에 필요한 확인</b> — ${A.need}</div>`:''}
- <p class="small muted" style="padding:0 18px 14px;margin:0">현행 pacen.myadr.care <b>Prediction(단계별 약제 선택 알고리듬)</b>과 동일한 분기 구조의 재현입니다. 알고리듬은 <b>기전(계열) 수준</b>의 안내이며, 약제별 권고문·근거(KQ1–6)와 함께 해석합니다. 알고리듬 정본 그림(PDF)의 페이지 참조 표기는 정본 확인 후 추가 예정.</p></div>`}
+ <p class="small muted" style="padding:0 18px 14px;margin:0">정본 근거: 최종 조판본 <b>II권 「치료 알고리즘」(II-9) — 간략판 p.171 · 상세판 Figure II-9 p.172</b> (2026-08-25 업데이트판). 본 패널은 Figure II-9와 동일한 분기 구조이며(현행 pacen.myadr.care Prediction 페이지와 일치 — 2026-08-30 대조), <b>기전(계열) 수준</b>의 안내로 약제별 권고문·근거(KQ1–6)와 함께 해석합니다.</p></div>`}
 /* 기전 → 약제 매핑 */
 const MECH={'Anti-IgE':{kqs:[1],hint:'알레르기 항체(IgE) 차단'},'Anti-IL5':{kqs:[2,3],hint:'호산구 신호(IL-5) 차단'},'Anti-IL5R':{kqs:[4],hint:'IL-5 수용체 차단 — 호산구 고갈'},'Anti-IL4Rα':{kqs:[5],hint:'제2형 염증 신호(IL-4/13) 차단'},'Anti-TSLP':{kqs:[6],hint:'상피 사이토카인(TSLP) 차단'}};
 const RESMECH={'r-all':['Anti-IL4Rα','Anti-IL5','Anti-IL5R','Anti-TSLP','Anti-IgE'],'r-ocs-high':['Anti-IL4Rα','Anti-IL5','Anti-IL5R'],'r-ocs-low':['Anti-IL4Rα'],'r-il5':['Anti-IL5','Anti-IL5R'],'r-tslp':['Anti-TSLP'],'r-ige-tslp':['Anti-IgE','Anti-TSLP'],'r-il4-tslp':['Anti-IL4Rα','Anti-TSLP'],'r-ige-il4-tslp':['Anti-IgE','Anti-IL4Rα','Anti-TSLP']};
@@ -102,7 +102,7 @@ const RESNOTE={'r-all':'호산구 150–1500 구간 — 다섯 계열 모두 후
 function drugsFor(res){const seen=new Set(),out=[];(RESMECH[res]||[]).forEach(m=>MECH[m].kqs.forEach(q=>{const d=DRUGS[q-1];if(!seen.has(d.name)){seen.add(d.name);out.push({d,m})}}));return out}
 function drugCards(res){
  return `<h3 class="sect" style="margin-top:22px">이 경로의 후보 약제 ${drugsFor(res).length}종 — 권고안 연결</h3>
- <div class="grid2">${drugsFor(res).map(({d,m})=>{const k=KQS[d.kq-1];return `<div class="card"><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px"><span class="b b-ok">${m}</span><span class="muted small" style="font-weight:700">${d.target}</span></div><h4 style="margin:3px 0 6px;font-size:16px" class="serif">${d.name}</h4><p class="small">${d.who}</p><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">${grB(k.grade,k.cond)} ${evB(k.ev)}</div><a class="small" href="#/kq/${d.kq}">권고안·근거 보기 (KQ${d.kq}) →</a></div>`}).join('')}</div>
+ <div class="grid2">${drugsFor(res).map(({d,m})=>{const k=KQS[d.kq-1];return `<div class="card"><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:4px"><span class="b b-ok">${m}</span><span class="muted small" style="font-weight:700">${d.target}</span></div><h4 style="margin:3px 0 6px;font-size:16px" class="serif">${d.name}</h4><p class="small">${d.who}</p><p class="small muted" style="margin:-2px 0 8px">${d.dose}</p><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">${grB(k.grade,k.cond)} ${evB(k.ev)}</div><a class="small" href="#/kq/${d.kq}">권고안·근거 보기 (KQ${d.kq}) →</a></div>`}).join('')}</div>
  <div class="notice"><b>해석 주의</b> · 후보 순서는 우선순위가 아닙니다(KQ1–6은 위약 대비 간접비교). 최종 선택은 급여 기준·동반질환·환자 선호를 포함해 담당 의료진과 결정합니다.</div>`}
 /* ---- 약제 선택: 의료진 입력 + 환자 위저드 공용 렌더 ---- */
 window.selAns=(k,v)=>{PC[k]=(PC[k]===v?null:v);if(k==='eos'&&PC.eos!=='gt1500')PC.ruledOut=null;pcSave();const el=$('#selUI');if(el)el.innerHTML=selUI();const b=$('#pcxBar');if(b)b.innerHTML=pcxBar()};
@@ -164,4 +164,3 @@ function selWizResult(){
  <div class="cn-hint">◀ 옆으로 넘겨 보세요</div><div class="cn-deck">${cards.join('')}</div>
  <details class="fx-alt"><summary>의료진용 알고리듬 경로 보기</summary>${algoPanel(A)}</details>
  <p class="small"><button class="btn ghost sm" onclick="wizBack()">← 답변 고치기</button> <button class="btn ghost sm" onclick="pcReset()">처음부터 다시</button></p>`}
-

@@ -53,8 +53,8 @@ P['patients/summary']=()=>`${crumb('For Patients','환자용 가이드라인 요
 P['patients/biologics']=()=>`${crumb('For Patients','생물학적 치료제 알아보기')}
  <h1 class="page">생물학적 치료제 알아보기</h1>
  <p class="muted">국내 허가된 중증천식 생물학적 치료제 6종 — 표적과 허가 적응 대상(요약). 자세한 용법·투여는 담당 의료진과 공식 허가사항을 확인하세요.</p>
- <div class="grid2">${DRUGS.map(d=>`<div class="card"><span class="muted small" style="font-weight:700;letter-spacing:.06em">표적 · ${d.target}</span><h4 style="margin:4px 0 8px;font-size:17px" class="serif">${d.name}</h4><p class="small">${d.who}</p><p class="small" style="margin-bottom:0"><a href="#/kq/${d.kq}">이 약제의 권고안 보기 (KQ${d.kq}) →</a><br><span class="muted">제조사 공식 홈페이지·환자용 자료 ${bP}</span></p></div>`).join('')}</div>
- <div class="notice"><b>안내</b> · 제조사 공식 홈페이지 주소, 회사 제공 환자용 지침·브로셔는 자료 확보 시 각 카드에 첨부 형식으로 제공합니다.</div>
+ <div class="grid2">${DRUGS.map(d=>`<div class="card"><span class="muted small" style="font-weight:700;letter-spacing:.06em">표적 · ${d.target}</span><h4 style="margin:4px 0 8px;font-size:17px" class="serif">${d.name}</h4><p class="small">${d.who}</p><p class="small">💉 ${d.dose}</p><p class="small" style="margin-bottom:0"><a href="#/kq/${d.kq}">이 약제의 권고안 보기 (KQ${d.kq}) →</a><br><span class="muted">제조사 공식 홈페이지·환자용 자료 ${bP}</span></p></div>`).join('')}</div>
+ <div class="notice"><b>안내</b> · 제조사 공식 홈페이지 주소, 회사 제공 환자용 지침·브로셔는 자료 확보 시 각 카드에 첨부 형식으로 제공합니다. 투여 경로·간격은 정본 II권 Table II-0-1(국내 허가사항 기준 요약)에 따른 것으로, 허가·급여 기준은 변경될 수 있어 실제 투여는 담당 의료진과 최신 허가사항을 확인해야 합니다.</div>
  ${indirect}${disclaimer}${pfoot}`;
 
 P['patients/voice']=()=>`${crumb('For Patients','환자 목소리')}
@@ -124,7 +124,7 @@ P['method']=()=>`${crumb('Methodology','개발 방법론')}
  <h2 class="sec" id="impact">Implementation</h2><h3 class="sect">권고안 실행 영향평가</h3>
  <div class="placeholder"><b>권고안 실행의 영향평가 기준 (지침 문서 I-8)</b> ${bN}<br>KQ별 측정방법 확정 후 게시 — 추후 고도화 시 해당 자료 필요.</div>
  <h2 class="sec" id="update">Updating</h2><h3 class="sect">갱신 방법</h3>
- <div class="placeholder"><b>갱신 방법 (지침 문서 I-9)</b> ${bN} → 개요는 <a href="#/intro/policy">개정·갱신 정책</a> 참조.</div>${pfoot}`;
+ <div class="placeholder"><b>갱신 방법 (정본 I-14)</b> ${bH} → 개요는 <a href="#/intro/policy">개정·갱신 정책</a> 참조.</div>${pfoot}`;
 
 P['method/mcid']=()=>`${crumb('Methodology','MCID 델파이 합의')}
  <h1 class="page">MCID 델파이 합의 결과</h1>
@@ -159,4 +159,3 @@ P['method/mcid']=()=>`${crumb('Methodology','MCID 델파이 합의')}
  </ul>
  <div class="placeholder"><b>원자료 (설문지·라운드별 응답 분포)</b> ${bN}<br>MCID 설문지 원문과 라운드별 동의율 분포 자료(PPT/Word) 수령 시 이 위치에 보강합니다 — 추후 고도화 시 해당 자료 필요.</div>
  <p class="small"><a href="#/method">← 개발 방법론</a></p>${pfoot}`;
-
