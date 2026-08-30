@@ -34,12 +34,12 @@ const KQS=[
 const KQD={};
 
 const DRUGS=[
- {name:'Omalizumab',target:'IgE (anti-IgE)',who:'혈중 IgE가 높은 알레르기성 중증 천식 (성인 및 12세 이상 청소년)',kq:1},
- {name:'Mepolizumab',target:'IL-5 (anti-IL-5)',who:'혈중 호산구가 높은 중증 호산구성 천식',kq:2},
- {name:'Reslizumab',target:'IL-5 (anti-IL-5)',who:'혈중 호산구가 높은 중증 호산구성 천식',kq:3},
- {name:'Benralizumab',target:'IL-5 수용체 (anti-IL-5Rα)',who:'중증 호산구성 천식',kq:4},
- {name:'Dupilumab',target:'IL-4 수용체 (anti-IL-4Rα)',who:'제2형 염증성(호산구 ≥150/㎕ 또는 FeNO ≥25 ppb) 또는 OCS 의존성 중증 천식',kq:5},
- {name:'Tezepelumab',target:'TSLP (anti-TSLP)',who:'표현형에 관계없이 조절되지 않는 중증 천식',kq:6}];
+ {name:'Omalizumab',target:'IgE (anti-IgE)',who:'혈중 IgE가 높은 알레르기성 중증 천식 (성인 및 12세 이상 청소년)',dose:'피하 주사 · 2–4주 간격 (체중·IgE 기준 용량)',kq:1},
+ {name:'Mepolizumab',target:'IL-5 (anti-IL-5)',who:'혈중 호산구가 높은 중증 호산구성 천식',dose:'피하 주사 · 4주 간격',kq:2},
+ {name:'Reslizumab',target:'IL-5 (anti-IL-5)',who:'혈중 호산구가 높은 중증 호산구성 천식',dose:'정맥 주사 · 4주 간격 (체중 기준 용량)',kq:3},
+ {name:'Benralizumab',target:'IL-5 수용체 (anti-IL-5Rα)',who:'중증 호산구성 천식',dose:'피하 주사 · 초기 4주 → 이후 8주 간격',kq:4},
+ {name:'Dupilumab',target:'IL-4 수용체 (anti-IL-4Rα)',who:'제2형 염증성(호산구 ≥150/㎕ 또는 FeNO ≥25 ppb) 또는 OCS 의존성 중증 천식',dose:'피하 주사 · 2주 간격',kq:5},
+ {name:'Tezepelumab',target:'TSLP (anti-TSLP)',who:'표현형에 관계없이 조절되지 않는 중증 천식',dose:'피하 주사 · 4주 간격',kq:6}];
 const MCIDS=[
  ['천식악화율 감소','핵심적','상대값','20%','연간 악화율 기저 대비 ≥20% 감소'],
  ['천식 연간 악화 횟수','핵심적','절대값','<1회','치료 후 연간 악화 1회 미만 = 치료 성공 기준'],
