@@ -5,7 +5,7 @@ const evB=ev=>`<span class="b b-ev">근거수준 ${ev} <span class="dots">${EVDO
 const grB=(g,c)=>`<span class="b b-grade">${g}${c?' <span style="font-weight:400">'+c+'</span>':''}</span>`;
 const disclaimer=`<div class="notice"><b>의료 면책</b> · 본 콘텐츠와 도구는 연구·교육 목적이며 개별 환자의 임상 판단을 대신하지 않습니다. 치료 결정은 반드시 담당 의료진과 상의하십시오. 권고안은 학회 인증·최종 승인 전 초안 상태일 수 있습니다.</div>`;
 const indirect=`<div class="notice"><b>간접비교 고지</b> · KQ1–6은 각 약제 대 위약 비교입니다. 약제 간 직접 비교 근거가 아니므로 약제 간 우열을 시사하지 않습니다.</div>`;
-const pfoot=`<div class="pfoot">성인 중증천식 진료 가이드라인 (개발 중 · 학회 인증 전) — PACEN · 대한천식알레르기학회(KAAACI)<br>진료지침 통합본 2026-08-25 · KQ 분석표 2026-08-24 수정본 · 근거 검색일 2025-12-31 · 본 화면은 프로토타입이며 실서비스 전 위원회 검토가 필요합니다.</div>`;
+const pfoot=`<div class="pfoot">성인 중증천식 진료 가이드라인 (개발 중 · 학회 인증 전) — PACEN · 대한천식알레르기학회(KAAACI)<br>진료지침 최종 조판본(4부작) 2026-08-25 업데이트 · KQ 분석표 2026-08-24 수정본 · 근거 검색일 2025-12-31 · 본 화면은 프로토타입이며 실서비스 전 위원회 검토가 필요합니다.</div>`;
 function crumb(a,b){return `<div class="crumb"><b>${a}</b>${b?' &nbsp;›&nbsp; '+b:''}</div>`}
 function statCards(list){return `<div class="stats">${list.map(x=>`<div class="stat"><div class="k">${x[0]}</div><div class="v">${x[1]}</div><div class="s">${x[2]||''}</div></div>`).join('')}</div>`}
 function kqCard(k){return `<a class="kq-card" href="#/kq/${k.n}"><span class="no">KQ ${k.n} ${k.type==='drug'?'· '+(k.target||''):''}</span><div class="nm">${k.name}</div><div class="ph">${k.pheno||''}</div><div class="bd">${grB(k.grade,k.cond)} ${evB(k.ev)}</div></a>`}
@@ -95,13 +95,14 @@ P['intro/progress']=()=>`${crumb('Introduction','개발 경과')}
 P['intro/policy']=()=>`${crumb('Introduction','개정·갱신 정책')}
  <h1 class="page">개정·갱신 정책</h1>
  <h3 class="sect" style="margin-top:20px">갱신 방법</h3>
- <div class="placeholder"><b>갱신 방법 (지침 문서 I-9)</b> ${bN}<br>연구계획서 기준: 새로운 약제·치료법 등 양질의 근거가 명백한 경우 권고안 추가·수정·보완 방식으로 <b>3–5년 주기 개정</b>을 계획하며, 신속 업데이트 필요 시 <b>리빙 가이드라인(living guideline) 포맷</b>을 검토. 명문화된 개정 프로토콜 수령 후 이 위치에 게시 — 추후 고도화 시 해당 자료 필요.</div>
+ <div class="placeholder"><b>갱신 방법 (정본 I-14 · 리빙 가이드라인 정의는 IV-1 용어집 수록)</b> ${bH}<br>연구계획서 기준: 새로운 약제·치료법 등 양질의 근거가 명백한 경우 권고안 추가·수정·보완 방식으로 <b>3–5년 주기 개정</b>을 계획하며, 신속 업데이트 필요 시 <b>리빙 가이드라인(living guideline) 포맷</b>을 검토. 명문화된 개정 프로토콜 수령 후 이 위치에 게시 — 추후 고도화 시 해당 자료 필요.</div>
  <h3 class="sect">버전·공시 이력</h3>
  <div class="tw"><table><thead><tr><th>버전</th><th>일자</th><th>내용</th></tr></thead><tbody>
  <tr><td>지침 문서 업데이트본</td><td>2026-05-01</td><td>서론·방법론·권고안 요약 정리</td></tr>
  <tr><td>KQ 분석표 (KQ1–8)</td><td>2026-07</td><td>근거 분석·GRADE·합의/공청회 결과 반영</td></tr>
  <tr><td>KQ 분석표 수정본</td><td>2026-08-24</td><td>KQ4 메타분석 재수행·하위군 분석 신설 · KQ8 FEV1(%) 재분석 · 전 KQ 참고문헌 인용체계 정비</td></tr>
  <tr><td>진료지침 통합본</td><td>2026-08-25</td><td>서론·방법론 17개 절 확장 + KQ1–8 수정본 + 부록(용어·약어집, PRISMA, 설문지, COI 공시) 통합 조판 (179쪽) · 공식 과제명 확정</td></tr>
+ <tr><td>최종 조판본 (4부작)</td><td>2026-08-25 업데이트<br><span class="muted small">(조판 2026-08-27)</span></td><td>I 서론·방법론(39쪽) / II 본문·권고문 2권(요약~KQ4 65쪽 · KQ5~알고리즘 69쪽) / IV 부록(23쪽) — 총 196쪽. <b>생물학적 제제별 특성 요약(Table II-0-1·II-0-2)</b>과 <b>치료 알고리즘 II-9(간략판·Figure II-9 상세판)</b> 신설 · III 최종 검토는 목차만(외부 검토·인증 대기)</td></tr>
  <tr><td>홈페이지 개편</td><td>(예정)</td><td>본 프로토타입 기반 콘텐츠 고도화</td></tr></tbody></table></div>
  <h3 class="sect">데이터 기준일 관리</h3>
  <p class="small">본 사이트의 정보는 두 종류의 기준일로 관리합니다.</p>
