@@ -28,7 +28,7 @@ P['method/values']=()=>`${crumb('Methodology','환자 가치·선호도 조사')
 P['resources']=()=>`${crumb('Resources','자료실')}
  <h1 class="page">자료실</h1>
  <div class="tw"><table><thead><tr><th style="min-width:190px">자료</th><th>내용</th><th>상태</th></tr></thead><tbody>
- <tr><td><b>진료지침 전문 PDF</b></td><td class="small">최종 승인본 공시 게시판 — 요약본 포함</td><td>${bN}</td></tr>
+ <tr><td><b>진료지침 전문 PDF</b></td><td class="small">최종 조판본 4부작 수령 완료(2026-08-25 업데이트판, 총 196쪽 — I 서론·방법론 / II 본문·권고문 2권 / IV 부록 · III 최종 검토는 목차만) — 공개 정책(최종 회의) 결정 후 요약본과 함께 공시 게시판에 게시</td><td>${bH}</td></tr>
  <tr><td><b>소책자</b></td><td class="small">의료인용 · 환자용 요약 소책자</td><td>${bN}</td></tr>
  <tr><td><b>방법론 부록 · 설문지</b></td><td class="small">중요한 건강결과 설문지 · MCID 설문지 · 환자 가치·선호도 설문지 (3종 확보 — 게시 형식·라이선스 결정 후 공개)</td><td>${bH}</td></tr>
  <tr><td><b>방법론 부록 · 검색전략</b></td><td class="small">KQ별 검색식 · PRISMA 흐름도</td><td>${bN}</td></tr>
@@ -59,4 +59,3 @@ function pcxBar(){
 window.pcReset=()=>{PC.s1=[false,false,false,false];PC.ocs=PC.eos=PC.ruledOut=PC.feno=PC.allergy=null;PC.rin={};PC.resp=null;PC.g={};pcSave();route()};
 const rv=k=>{const v=PC.rin&&PC.rin[k];return v==null?'':v};
 const ph=t=>PC.mode==='pat'?`<div class="pat-note">${t}</div>`:'';
-
