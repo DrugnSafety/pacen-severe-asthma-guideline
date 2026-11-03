@@ -9,13 +9,16 @@ KQ는 핵심질문(Key Question)을 뜻합니다.
 | 바로가기 | 주소 |
 | --- | --- |
 | 검수·평가 사이트 | https://review.asthma-guideline.kr |
-| 교육 영상 A·B | https://review.asthma-guideline.kr/viz/expert_eval/evaluator_training_guide_v0.5.html#review |
+| 교육 영상 A · 원문 검수 | https://review.asthma-guideline.kr/viz/expert_eval/evaluator_training_guide_v0.5.html#review |
+| 교육 영상 B · 응답 평가 | https://review.asthma-guideline.kr/viz/expert_eval/evaluator_training_guide_v0.5.html#eval |
 | 연구 개요 | https://drugnsafety.github.io/pacen-severe-asthma-guideline/researcher-guide/ |
 
 - 개별 메일의 본인 계정으로 로그인해 주세요.
 - 함께 담당하시는 교수님과 각각 독립적으로 평가해 주세요.
 - 화면에 배정된 담당 KQ와 문항을 확인해 주세요.
-- 교육 영상에서 A는 원문 검수, B는 응답 평가를 설명합니다.
+- 리뷰 사이트 상단의 **「평가자 교육 가이드」**를 눌러 주세요.
+- 안내 화면에서 A(원문 검수) 또는 B(응답 평가)를 선택해 주세요.
+- 재생 버튼을 눌러 주세요. 필요한 장면을 선택할 수도 있습니다.
 
 ## 1. 원문 검수
 
@@ -60,4 +63,4 @@ OIS는 최적 정보량입니다.
 연구·교육 목적의 평가입니다.
 챗봇은 특정 환자에 대한 임상 판단을 대신하지 않습니다.
 
-작성: 2026-11-03 · 교수용 안내 v1.0
+작성: 2026-11-03 · 교수용 안내 v1.1
